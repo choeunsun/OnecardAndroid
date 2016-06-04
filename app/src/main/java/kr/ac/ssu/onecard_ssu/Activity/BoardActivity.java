@@ -18,6 +18,19 @@ public class BoardActivity extends AppCompatActivity {
     int turn=0;
     Card topCard;
 
+    /*
+     setContentView(R.layout.activity_board);
+
+        RelativeLayout frameLayout_p1 = (RelativeLayout) findViewById(R.id.fl_board_p1_card);
+        for(int i=0; i<30; i++){
+            ImageView iv = new ImageView(getApplicationContext());
+            iv.setBackgroundResource(R.mipmap.ic_launcher);
+            frameLayout_p1.addView(iv);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv.getLayoutParams();
+            params.leftMargin = i * 50;
+            iv.setLayoutParams(params);
+     */
+
     boolean turn_plus=true;
     boolean jump=false;
     boolean oneMore=false;
