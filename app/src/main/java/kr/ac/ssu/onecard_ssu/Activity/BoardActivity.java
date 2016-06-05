@@ -40,7 +40,7 @@ public class BoardActivity extends AppCompatActivity {
 
     public void onCreate(Bundle saveInstance){
         super.onCreate(saveInstance);
-        setContentView(R.layout.activity_main); // todo Make Layout
+        setContentView(R.layout.activity_board); // todo Make Layout
 
         init();
 

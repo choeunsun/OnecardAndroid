@@ -13,6 +13,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.ac.ssu.onecard_ssu.MainActivity;
 import kr.ac.ssu.onecard_ssu.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -58,8 +59,12 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                                 //todo 로그인될때 방정보로 넘어가기
+                                Intent i=new Intent(getApplicationContext(), RoomActivity.class);
+                                startActivity(i);
+                            //    finish();
+
                             } else {
-                                //todo 로그인 정보가 잘못되었을 떄1 `
+                                //todo 로그인 정보가 잘못되었을 떄1
 
                             }
                         } catch (JSONException e) {
@@ -82,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i= new Intent(getApplicationContext(),SignupActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
