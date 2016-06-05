@@ -44,7 +44,8 @@ public class LoginActivity extends AppCompatActivity {
                 id = et_id.getText().toString();
                 pw = et_pw.getText().toString();
 
-                RequestUtil.get("http://133.130.115.228:7010/user/login?user_id=" + id + "&user_pw=" + pw, new Request() {
+                RequestUtil.get("http://133.130.115.228:7010/user/login?user_id=" + id
+                        + "&user_pw=" + pw, new Request() {
                     @Override
                     public void onSuccess(String receiveData) {
                         JSONObject jsonObject = null;

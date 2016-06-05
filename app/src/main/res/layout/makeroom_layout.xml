@@ -30,14 +30,19 @@
             android:layout_height="wrap_content"
             android:text="비밀방" />
 
-        <CheckedTextView
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="O"/>
-        <CheckedTextView
+            android:text="O   "
+            android:checked="false"
+            android:id="@+id/cb_makeroom_yes" />
+
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X"/>
+            android:text="X"
+            android:checked="true"
+            android:id="@+id/cb_makeroom_no" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -57,12 +62,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="최대 인원수" />
-        <EditText
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="3"
-            android:id="@+id/et_makeroom_capacity" />
-    </LinearLayout>
+            android:text="2"
+            android:checked="false"
+            android:id="@+id/cb_makeroom_two" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:checked="false"
+            android:id="@+id/cb_makeroom_three" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:checked="false"
+            android:id="@+id/cb_makeroom_four" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:checked="true"
+            android:id="@+id/cb_makeroom_five" />
+        </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
