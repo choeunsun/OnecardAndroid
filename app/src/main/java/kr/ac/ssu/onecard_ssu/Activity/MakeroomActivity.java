@@ -2,6 +2,7 @@ package kr.ac.ssu.onecard_ssu.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class MakeroomActivity extends Activity {
     Button btn_makeroom_ok;
     Button btn_makeroom_cancel;
     String room_title,user_id, is_private, room_limit, nickname,room_pw;
+    SharedPreferences user_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MakeroomActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                user_id = "user1"; //todo 유저 이메일 가져오기
+                user_id = user_info.getString("email","");
                 room_title = et_makeroom_title.getText().toString();
                 if (cb_makeroom_yes.isChecked() == true)
                     is_private = "on";
@@ -55,8 +57,7 @@ public class MakeroomActivity extends Activity {
                     room_limit = "4";
                 else if (cb_makeroom_five.isChecked() == true)
                     room_limit = "5";
-
-                nickname = "tomtom"; //todo 유저 닉네임 쉐어드프리퍼런스에서 가져오기
+                nickname = user_info.getString("nickname","");
                 room_pw=et_makeroom_pw.getText().toString();
 
                 try {
@@ -167,5 +168,6 @@ public class MakeroomActivity extends Activity {
         btn_makeroom_ok=(Button)findViewById(R.id.btn_makeroom_ok);
         btn_makeroom_cancel=(Button)findViewById(R.id.btn_makeroom_cancel);
         et_makeroom_pw=(EditText)findViewById(R.id.et_makeroom_pw);
+        user_info=getSharedPreferences("user_info", MODE_PRIVATE);
     }
 }

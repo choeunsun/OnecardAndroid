@@ -3,6 +3,7 @@ package kr.ac.ssu.onecard_ssu.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     String id,pw;
     boolean success=false;
     RequestUtil requestUtil=null;
-
+    SharedPreferences user_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_LONG);
                                     }
                                 });
-                                //todo 로그인될때 방정보로 넘어가기
+                                String nickname = jsonObject.getString("nick_name");
+                                SharedPreferences.Editor editor=user_info.edit();
+                                editor.putString("email",id);
+                                editor.putString("nickname",nickname);
+                                editor.commit();
+
                                 Intent i=new Intent(getApplicationContext(), RoomActivity.class);
                                 startActivity(i);
-                            //    finish();
+                                finish();
 
                             } else {
                                 //todo 로그인 정보가 잘못되었을 떄1
@@ -98,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_signup=(Button)findViewById(R.id.btn_login_signup);
         et_id=(EditText)findViewById(R.id.et_login_id);
         et_pw=(EditText)findViewById(R.id.et_login_password);
+        user_info=getSharedPreferences("user_info", MODE_PRIVATE);
     }
 }
 
