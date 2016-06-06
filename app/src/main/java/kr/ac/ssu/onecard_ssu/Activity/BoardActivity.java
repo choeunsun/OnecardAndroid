@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -33,7 +34,8 @@ import kr.ac.ssu.onecard_ssu.model.Card;
 public class BoardActivity extends AppCompatActivity {
     private SockJSImpl sockJS;
     private String channel_id = "cbb9319e-3de5-473a-abdc-fcc1cd0d30ee";
-    private String nickname = "fkldjsakl";
+    private String user_id;
+    private String user_nick;
     private String title;
     private Board board;
     private Button btn_onecard;
@@ -44,6 +46,8 @@ public class BoardActivity extends AppCompatActivity {
     private ImageView iv_topCard;
     private int playerCnt = 3;
     private LinearLayout myDeck;
+    private TextView myNick;
+
     private ArrayList<Card> listCard;
     Intent intent;
 
@@ -89,6 +93,7 @@ public class BoardActivity extends AppCompatActivity {
         btn_chat = (Button) findViewById(R.id.btn_board_chat);
         btn_gamestart = (Button) findViewById(R.id.btn_board_gamestart);
         iv_topCard = (ImageView) findViewById(R.id.iv_board_topcard);
+        myNick = (TextView) findViewById(R.id.tv_board_myNick);
 
         btn_onecard.setVisibility(View.INVISIBLE);
         btn_turnoff.setVisibility(View.INVISIBLE);
@@ -96,8 +101,11 @@ public class BoardActivity extends AppCompatActivity {
         iv_topCard.setVisibility(View.INVISIBLE);
 
         intent=getIntent();
-        nickname=intent.getStringExtra("user_id");
+        user_id =intent.getStringExtra("user_id");
         channel_id=intent.getStringExtra("room_id");
+        user_nick = intent.getStringExtra("user_nick");
+
+        myNick.setText(user_nick);
 
         btn_onecard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +139,7 @@ public class BoardActivity extends AppCompatActivity {
                             body.put("type", "system_play");
                             body.put("channel_id", channel_id);
                             body.put("sender_id", "ssss");
-                            body.put("sender_nick", nickname);
+                            body.put("sender_nick", user_id);
                             body.put("msg", "카드를 냄");
                             obj.put("body", body);
                         } catch (JSONException e) {
@@ -166,6 +174,7 @@ public class BoardActivity extends AppCompatActivity {
 
             }
         });
+        board = new Board(playerCnt, getApplicationContext());
 
         btn_gamestart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +186,7 @@ public class BoardActivity extends AppCompatActivity {
                     btn_turnoff.setVisibility(View.VISIBLE);
                     btn_gamestart.setVisibility(View.INVISIBLE);
                     iv_topCard.setVisibility(View.VISIBLE);
-                    board = new Board(playerCnt, getApplicationContext());
+
                     RequestUtil.get("http://133.130.115.228:7010/user/gamestart?room_id="
                             + channel_id, new Request() {
                         @Override
@@ -199,7 +208,7 @@ public class BoardActivity extends AppCompatActivity {
 
     private void connectSockJS() {
         try {
-            sockJS = new SockJSImpl("http://133.130.115.228:7030" + "/eventbus", channel_id, nickname, title) {
+            sockJS = new SockJSImpl("http://133.130.115.228:7030" + "/eventbus", channel_id, user_id, title) {
                 //channel_
                 @Override
                 public void parseSockJS(String s) {
@@ -221,15 +230,15 @@ public class BoardActivity extends AppCompatActivity {
                         final JSONObject body = new JSONObject(json.getString("body"));
                         String bodyType = body.getString("type");
 //                        final String msg = body.getString("msg");
-//                        String nickname = body.getString("sender_nick");
+//                        String user_id = body.getString("sender_nick");
 //                        Date myDate = new Date();
 //                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd. HH:mm");
 //                        String date = sdf.format(myDate);
-//                        final String data =  bodyType + "/&" +nickname + "/&" + msg + "/&" + date;
+//                        final String data =  bodyType + "/&" +user_id + "/&" + msg + "/&" + date;
                         if (("to.channel." + channel_id).equals(address)) {
                             if ("system".equals(bodyType)) {      // 카드가 들어왔을 때
                                 String id = body.getString("id");
-                                if (id.equals(nickname)) {
+                                if (id.equals(user_id)) {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -256,7 +265,7 @@ public class BoardActivity extends AppCompatActivity {
                                                                 body.put("type", "system_play");
                                                                 body.put("channel_id", channel_id);
                                                                 body.put("sender_id", "ssss");
-                                                                body.put("sender_nick", nickname);
+                                                                body.put("sender_nick", user_id);
                                                                 body.put("msg", "카드를 냄");
                                                                 obj.put("body", body);
                                                             } catch (JSONException e) {
@@ -325,7 +334,7 @@ public class BoardActivity extends AppCompatActivity {
             body.put("type", "system");
             body.put("channel_id", channel_id);
             body.put("sender_id", "ssss");
-            body.put("sender_nick", nickname);
+            body.put("sender_nick", user_id);
             body.put("msg", "카드를 냄");
             obj.put("body", body);
         } catch (JSONException e) {

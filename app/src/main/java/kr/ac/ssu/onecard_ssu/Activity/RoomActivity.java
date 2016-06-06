@@ -286,7 +286,7 @@ public class RoomActivity extends AppCompatActivity {
                             //todo BoardActivity 미완
                             Intent i = new Intent(getApplicationContext(), BoardActivity.class);
                             i.putExtra("user_id",user_id);
-                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("user_nick",user_nickname);
                             i.putExtra("room_id",roomlist.get(1).getRoom_id());
                             startActivity(i);
                             finish();
