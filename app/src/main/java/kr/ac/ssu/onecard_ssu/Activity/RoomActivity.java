@@ -227,10 +227,31 @@ public class RoomActivity extends AppCompatActivity {
 
    public void onClick1(View v){
        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+       int roomNum = 0;
+       switch (v.getId()){
+           case R.id.ll_room_room1:
+               roomNum = 0;
+               break;
+           case R.id.ll_room_room2:
+               roomNum = 1;
+               break;
+           case R.id.ll_room_room3:
+               roomNum = 2;
+               break;
+           case R.id.ll_room_room4:
+               roomNum = 3;
+               break;
+           case R.id.ll_room_room5:
+               roomNum = 4;
+               break;
+           case R.id.ll_room_room6:
+               roomNum = 5;
+               break;
+       }
 
         try{
        RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-               + roomlist.get(0).getRoom_id()
+               + roomlist.get(roomNum).getRoom_id()
                + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
                + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
            @Override
@@ -267,213 +288,6 @@ public class RoomActivity extends AppCompatActivity {
        }
 
    }
-    public void onClick2(View v){
-        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
-
-        try{
-            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-                    + roomlist.get(1).getRoom_id()
-                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
-                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
-                @Override
-                public void onSuccess(String receiveData) {
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(receiveData);
-                        int result_code = jsonObject.optInt("result_code", -1);
-                        if (result_code == 0) {
-
-                            //todo BoardActivity 미완
-                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                            i.putExtra("user_id",user_id);
-                            i.putExtra("user_nick",user_nickname);
-                            i.putExtra("room_id",roomlist.get(1).getRoom_id());
-                            startActivity(i);
-                            finish();
-
-                        } else {
-                            //todo 풀방
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFail(String url, String error) {
-                    // 서버와 연결이 되지 않았을 때
-                }
-            });
-        }catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void onClick3(View v){
-        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
-
-        try{
-            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-                    + roomlist.get(2).getRoom_id()
-                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
-                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
-                @Override
-                public void onSuccess(String receiveData) {
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(receiveData);
-                        int result_code = jsonObject.optInt("result_code", -1);
-                        if (result_code == 0) {
-
-                            //todo BoardActivity 미완
-                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                            i.putExtra("user_id",user_id);
-                            i.putExtra("user_nickname",user_nickname);
-                            i.putExtra("room_id",roomlist.get(2).getRoom_id());
-                            startActivity(i);
-                            finish();
-
-                        } else {
-                            //todo 풀방
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFail(String url, String error) {
-                    // 서버와 연결이 되지 않았을 때
-                }
-            });
-        }catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void onClick4(View v){
-        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
-
-        try{
-            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-                    + roomlist.get(3).getRoom_id()
-                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
-                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
-                @Override
-                public void onSuccess(String receiveData) {
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(receiveData);
-                        int result_code = jsonObject.optInt("result_code", -1);
-                        if (result_code == 0) {
-
-                            //todo BoardActivity 미완
-                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                            i.putExtra("user_id",user_id);
-                            i.putExtra("user_nickname",user_nickname);
-                            i.putExtra("room_id",roomlist.get(3).getRoom_id());
-                            startActivity(i);
-                            finish();
-
-                        } else {
-                            //todo 풀방
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFail(String url, String error) {
-                    // 서버와 연결이 되지 않았을 때
-                }
-            });
-        }catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void onClick5(View v){
-        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
-
-        try{
-            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-                    + roomlist.get(4).getRoom_id()
-                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
-                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
-                @Override
-                public void onSuccess(String receiveData) {
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(receiveData);
-                        int result_code = jsonObject.optInt("result_code", -1);
-                        if (result_code == 0) {
-
-                            //todo BoardActivity 미완
-                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                            i.putExtra("user_id",user_id);
-                            i.putExtra("user_nickname",user_nickname);
-                            i.putExtra("room_id",roomlist.get(4).getRoom_id());
-                            startActivity(i);
-                            finish();
-                        } else {
-                            //todo 풀방
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onFail(String url, String error) {
-                    // 서버와 연결이 되지 않았을 때
-                }
-            });
-        }catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-    public void onClick6(View v){
-        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
-
-        try{
-            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-                    + roomlist.get(5).getRoom_id()
-                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
-                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
-                @Override
-                public void onSuccess(String receiveData) {
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(receiveData);
-                        int result_code = jsonObject.optInt("result_code", -1);
-                        if (result_code == 0) {
-
-                            //todo BoardActivity 미완
-                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                            i.putExtra("user_id",user_id);
-                            i.putExtra("user_nickname",user_nickname);
-                            i.putExtra("room_id",roomlist.get(5).getRoom_id());
-                            startActivity(i);
-                            finish();
-
-                        } else {
-                            //todo 풀방
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFail(String url, String error) {
-                    // 서버와 연결이 되지 않았을 때
-                }
-            });
-        }catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void init(){
         room=new LinearLayout[6];

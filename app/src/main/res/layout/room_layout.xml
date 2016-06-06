@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room2"
-                    android:onClick="onClick2"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room3"
-                    android:onClick="onClick3"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room4"
-                    android:onClick="onClick4"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
@@ -217,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room5"
-                    android:onClick="onClick5"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
@@ -255,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room6"
-                    android:onClick="onClick6"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
