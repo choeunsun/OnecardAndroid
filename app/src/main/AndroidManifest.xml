@@ -43,6 +43,7 @@
 
         </activity>
         <activity android:name=".Activity.RoomActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
 
         </activity>

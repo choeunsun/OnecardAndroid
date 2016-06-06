@@ -401,8 +401,6 @@ public class BoardActivity extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
                                         }
-
-
                                     });
 
 
