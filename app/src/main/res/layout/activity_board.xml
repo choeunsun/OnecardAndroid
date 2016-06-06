@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
 
@@ -101,17 +102,17 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
+            <ImageView
                 android:layout_width="71dp"
                 android:layout_height="114dp"
                 android:layout_gravity="center_horizontal"
-                android:text="New Button"
+                android:background="@drawable/joker"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="35dp"
                 android:layout_marginStart="35dp"
-                android:id="@+id/button2" />
+                android:id="@+id/iv_board_topcard" />
 
             <Button
                 android:layout_width="71dp"
@@ -119,9 +120,9 @@
                 android:layout_gravity="center_horizontal"
                 android:text="New Button"
                 android:id="@+id/button"
-                android:layout_alignTop="@+id/button2"
-                android:layout_toRightOf="@+id/button2"
-                android:layout_toEndOf="@+id/button2"
+                android:layout_alignTop="@+id/iv_board_topcard"
+                android:layout_toRightOf="@+id/iv_board_topcard"
+                android:layout_toEndOf="@+id/iv_board_topcard"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp" />
 
@@ -129,7 +130,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="넘기기"
-                android:id="@+id/button3"
+                android:id="@+id/btn_board_turnoff"
+                android:visibility="invisible"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="게임시작"
+                android:id="@+id/btn_board_gamestart"
+                android:visibility="visible"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
@@ -138,27 +149,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="원카드"
-                android:id="@+id/button4"
-                android:layout_above="@+id/button3"
-                android:layout_alignRight="@+id/button3"
-                android:layout_alignEnd="@+id/button3" />
+                android:id="@+id/btn_board_onecard"
+                android:visibility="invisible"
+                android:layout_above="@+id/btn_board_turnoff"
+                android:layout_alignRight="@+id/btn_board_turnoff"
+                android:layout_alignEnd="@+id/btn_board_turnoff" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="나가기 버튼"
-                android:id="@+id/button5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bt_quit"
+                android:id="@+id/btn_board_quit"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bt_message"
+                android:id="@+id/btn_board_chat"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/button5"/>
+                android:layout_toLeftOf="@id/btn_board_quit"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -185,63 +199,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:id="@+id/ll_board_mydeck"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
 
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
-
-                <Button
-                    android:layout_width="71dp"
-                    android:layout_height="114dp"
-                    android:text="New Button" />
 
             </LinearLayout>
 

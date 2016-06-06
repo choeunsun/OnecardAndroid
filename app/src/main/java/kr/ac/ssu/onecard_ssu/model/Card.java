@@ -8,12 +8,14 @@ public class Card {
     private int index; //카드 번호 최대 13
     private String id; //13*4+2=54
     private int image;
+    private int _id;
 
-    public Card(char shape, int index, String id){
+    public Card(int _id, char shape, int index, String id, int image){
+        this._id = _id;
         this.shape=shape;
         this.index=index;
         this.id=id;
-        //this.image=image;
+        this.image=image;
     }
     public void setCard(char shape, int index, String id){
         this.shape=shape;
@@ -25,4 +27,5 @@ public class Card {
     public int getIndex(){return index;}
     public String getId(){return id;}
     public int getImage(){return image;}
+    public int get_id(){return _id;}
 }
