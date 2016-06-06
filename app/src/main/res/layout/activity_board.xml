@@ -186,7 +186,7 @@
                 android:layout_marginStart="35dp"
                 android:src="@drawable/joker" />
 
-            <Button
+            <ImageView
                 android:id="@+id/button"
                 android:layout_width="71dp"
                 android:layout_height="114dp"
@@ -194,6 +194,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
+                android:src="@drawable/card_back"
                 android:layout_toEndOf="@+id/iv_board_topcard"
                 android:layout_toRightOf="@+id/iv_board_topcard"
                 android:text="New Button" />

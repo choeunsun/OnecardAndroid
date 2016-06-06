@@ -6,10 +6,15 @@ import java.util.ArrayList;
  * Created by unseon on 2016-05-30.
  */
 public class User {
+    private String nickName;
+    private String user_id;
+    private int turn;
     private int cardCount;
     private ArrayList<Card> havingCard;
 
-    public User(){
+    public User(String nickName, String user_id){
+        this.nickName = nickName;
+        this.user_id = user_id;
         havingCard= new ArrayList<Card>();
         cardCount=0;
     }

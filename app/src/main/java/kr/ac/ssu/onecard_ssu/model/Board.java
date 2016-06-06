@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -18,13 +19,15 @@ public class Board {
     public User[] user;
     public ArrayList<Card> c;
     private Context context;
+    public HashMap<String, User> userHashMap; // id, User
 
     public Board(int playerNum, Context context){
         this.playerNum=playerNum;
         QCard=new LinkedList<Card>();
-        user=new User[playerNum];
+        user=new User[5];
         c=new ArrayList<Card>();
         this.context = context;
+        userHashMap = new HashMap<>();
 
         int id=0;
         for(int i=1;i<=13;i++){

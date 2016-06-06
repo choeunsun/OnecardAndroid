@@ -23,15 +23,17 @@ public class SockJSImpl extends WebSocketClient {
     private final static String dictionary = "abcdefghijklmnopqrstuvwxyz0123456789_";
     private String roomname;
     private Timer timer;
-    private String nickname = "";
+    private String nickname = "d";
+    private String user_id = "s";
     private String title;
 
-    public SockJSImpl(String serverURI, String roomname, String nickname, String title) throws URISyntaxException {
+    public SockJSImpl(String serverURI, String roomname, String user_id, String nickname, String title) throws URISyntaxException {
         super(new URI(generatePrimusUrl(serverURI)), new Draft_17());
         Log.i("test", "Test");
         this.openHandShakeFields = new HashMap<>();
         this.roomname = roomname;
         this.nickname = nickname;
+        this.user_id = user_id;
         this.title = title;
     }
 
@@ -120,11 +122,11 @@ public class SockJSImpl extends WebSocketClient {
             log.put("type", "publish");
             log.put("address", "to.server.channel");
             JSONObject body = new JSONObject();
-            body.put("type", "chat_log");
+            body.put("type", "system_enter");
             body.put("channel_id", roomname);
-            body.put("sender_id", "aaa");
+            body.put("sender_id", user_id);
             body.put("sender_nick", nickname);
-            body.put("msg", "님이 " + title + "방에 입장하셨습니다.");
+            body.put("msg", ".");
             log.put("body", body);
             send(log);
         } catch (JSONException e) {

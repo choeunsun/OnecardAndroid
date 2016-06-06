@@ -250,7 +250,8 @@ public class RoomActivity extends AppCompatActivity {
        }
 
         try{
-       RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+            final int finalRoomNum = roomNum;
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
                + roomlist.get(roomNum).getRoom_id()
                + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
                + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
@@ -263,8 +264,8 @@ public class RoomActivity extends AppCompatActivity {
                    if (result_code == 0) {
                        Intent i = new Intent(getApplicationContext(), BoardActivity.class);
                        i.putExtra("user_id",user_id);
-                       i.putExtra("user_nickname",user_nickname);
-                       i.putExtra("room_id",roomlist.get(0).getRoom_id());
+                       i.putExtra("user_nick",user_nickname);
+                       i.putExtra("room_id", roomlist.get(finalRoomNum).getRoom_id());
 
 
                        JSONArray jsonArray = jsonObject.getJSONArray("user_list");
