@@ -8,13 +8,15 @@ public class Room {
     private String is_private;
     private String room_pw;
     private String room_limit;
+    private String user_cnt;
     private String room_id;
 
-    public Room(String room_name, String is_private, String room_pw, String room_limit, String room_id) {
+    public Room(String room_name, String is_private, String room_pw, String room_limit,String user_cnt, String room_id) {
         this.room_name = room_name;
         this.is_private = is_private;
         this.room_pw = room_pw;
         this.room_limit = room_limit;
+        this.user_cnt=user_cnt;
         this.room_id = room_id;
     }
 
@@ -33,6 +35,7 @@ public class Room {
     public String getRoom_limit() {
         return room_limit;
     }
+    public String getUser_cnt()  {return user_cnt;}
 
     public String getRoom_id(){
         return room_id;

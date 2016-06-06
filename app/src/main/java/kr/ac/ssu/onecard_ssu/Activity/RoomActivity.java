@@ -31,7 +31,7 @@ public class RoomActivity extends AppCompatActivity {
     LinearLayout[] room;
     Button btn_room_makeroom, btn_room_prev, btn_room_next;
     ArrayList<Room> roomlist;
-    int pos=1;
+    int pos=0, room_count=0;
     TextView name1, crt1, all1;
     ImageView lock1;
     TextView name2, crt2, all2;
@@ -53,6 +53,11 @@ public class RoomActivity extends AppCompatActivity {
         setContentView(R.layout.room_layout);
 
         init();
+        room_count=0;
+        resetRoom();
+        if(room_count==0){
+
+        }
 
         btn_room_makeroom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,52 +66,11 @@ public class RoomActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        //네트워크 연결 부분
-        //리스트를 받아와서 roomlist에 넣어줌.
-        RequestUtil.get("http://133.130.115.228:7010/user/roomlist", new Request() {
-            @Override
-            public void onSuccess(String receiveData) {
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(receiveData);
-                    int result_code = jsonObject.optInt("result_code", -1);
-                    if (result_code == 0) {
-                        String roomArrayString= jsonObject.getString("list_channel");
-                        JSONArray jsonArray=new JSONArray(roomArrayString);
-                        roomlist.clear();
-                        for(int i=0;i<jsonArray.length();i++){
-                            JSONObject j = jsonArray.getJSONObject(i);
-                            Room r= new Room(j.getString("room_name"), j.getString("is_private")
-                                    , j.getString("room_pw"),j.getString("room_limit"),
-                                    j.getString("room_id"));
-                            roomlist.add(r);
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                resetRoom();
-                            }
-                        });
-
-                    } else {
-                        //todo 방이 문제있을 때
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFail(String url, String error) {
-                // 서버와 연결이 되지 않았을 때
-            }
-        });
-
         btn_room_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pos++;
-                resetRoom();
+                resetRoomAll();
             }
         });
         btn_room_prev.setOnClickListener(new View.OnClickListener() {
@@ -114,17 +78,50 @@ public class RoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (pos > 0)
                     pos--;
-                resetRoom();
+                resetRoomAll();
             }
         });
 
     }
 
-    public void resetRoom(){
-        int num;
-        num=1;
-        resetRoom1(roomlist.get(num).getRoom_name(), "1", roomlist.get(num).getRoom_limit()
-                , roomlist.get(num).getIs_private());
+    public void resetRoomAll(){
+        int n=0;
+        if(n<room_count) {
+            resetRoom1(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
+        if(n<room_count) {
+            resetRoom2(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
+        if(n<room_count) {
+            resetRoom3(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
+        if(n<room_count) {
+            resetRoom4(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
+        if(n<room_count) {
+            resetRoom5(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
+        if(n<room_count) {
+            resetRoom6(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
+                    , roomlist.get(n).getRoom_limit()
+                    , roomlist.get(n).getIs_private());
+            n++;
+        }
     }
 
     public void resetRoom1(String name, String crt,String all, String lock){
@@ -149,7 +146,7 @@ public class RoomActivity extends AppCompatActivity {
         name3.setText(name);
         crt3.setText(crt);
         all3.setText(all);
-        if(lock=="on")
+        if(lock.equals("on"))
             lock3.setVisibility(View.VISIBLE);
         else
             lock3.setVisibility(View.INVISIBLE);
@@ -158,7 +155,7 @@ public class RoomActivity extends AppCompatActivity {
         name4.setText(name);
         crt4.setText(crt);
         all4.setText(all);
-        if(lock=="on")
+        if(lock.equals("on"))
             lock4.setVisibility(View.VISIBLE);
         else
             lock4.setVisibility(View.INVISIBLE);
@@ -167,7 +164,7 @@ public class RoomActivity extends AppCompatActivity {
         name5.setText(name);
         crt5.setText(crt);
         all5.setText(all);
-        if(lock=="on")
+        if(lock.equals("on"))
             lock5.setVisibility(View.VISIBLE);
         else
             lock5.setVisibility(View.INVISIBLE);
@@ -176,20 +173,64 @@ public class RoomActivity extends AppCompatActivity {
         name6.setText(name);
         crt6.setText(crt);
         all6.setText(all);
-        if(lock=="on")
+        if(lock.equals("on"))
             lock6.setVisibility(View.VISIBLE);
         else
             lock6.setVisibility(View.INVISIBLE);
     }
 
-    //todo 각 클릭리스너 추가하기!!!!!
+    public void resetRoom(){
+        //네트워크 연결 부분
+        //리스트를 받아와서 roomlist에 넣어줌.
+        RequestUtil.get("http://133.130.115.228:7010/user/roomlist?start_index=" + (pos * 6)
+                + "&end_index=" + (pos * 6 + 5), new Request() {
+            @Override
+            public void onSuccess(String receiveData) {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(receiveData);
+                    int result_code = jsonObject.optInt("result_code", -1);
+                    if (result_code == 0) {
+                        String roomArrayString = jsonObject.getString("list_channel");
+                        JSONArray jsonArray = new JSONArray(roomArrayString);
+                        roomlist.clear();
+                        room_count = jsonArray.length();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject j = jsonArray.getJSONObject(i);
+                            Room r = new Room(j.getString("room_name"), j.getString("is_private")
+                                    , j.getString("room_pw"), j.getString("room_limit")
+                                    , j.getString("user_cnt"), j.getString("room_id"));
+                            roomlist.add(r);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                resetRoomAll();
+                            }
+                        });
+
+                    } else {
+                        room_count = 0;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(String url, String error) {
+                // 서버와 연결이 되지 않았을 때
+            }
+        });
+    }
+
+
    public void onClick1(View v){
-       //todo 방으로 들어가기
        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
 
         try{
        RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
-               + roomlist.get(1).getRoom_id()
+               + roomlist.get(0).getRoom_id()
                + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
                + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
            @Override
@@ -201,9 +242,12 @@ public class RoomActivity extends AppCompatActivity {
                    if (result_code == 0) {
 
                        //todo BoardActivity 미완
-                    //   Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                     //  startActivity(i);
-                      // finish();
+                       Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                       i.putExtra("user_id",user_id);
+                       i.putExtra("user_nickname",user_nickname);
+                       i.putExtra("room_id",roomlist.get(0).getRoom_id());
+                       startActivity(i);
+                       finish();
 
                    } else {
                        //todo 풀방
@@ -223,6 +267,213 @@ public class RoomActivity extends AppCompatActivity {
        }
 
    }
+    public void onClick2(View v){
+        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+
+        try{
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+                    + roomlist.get(1).getRoom_id()
+                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
+                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
+                @Override
+                public void onSuccess(String receiveData) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(receiveData);
+                        int result_code = jsonObject.optInt("result_code", -1);
+                        if (result_code == 0) {
+
+                            //todo BoardActivity 미완
+                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                            i.putExtra("user_id",user_id);
+                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("room_id",roomlist.get(1).getRoom_id());
+                            startActivity(i);
+                            finish();
+
+                        } else {
+                            //todo 풀방
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String url, String error) {
+                    // 서버와 연결이 되지 않았을 때
+                }
+            });
+        }catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void onClick3(View v){
+        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+
+        try{
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+                    + roomlist.get(2).getRoom_id()
+                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
+                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
+                @Override
+                public void onSuccess(String receiveData) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(receiveData);
+                        int result_code = jsonObject.optInt("result_code", -1);
+                        if (result_code == 0) {
+
+                            //todo BoardActivity 미완
+                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                            i.putExtra("user_id",user_id);
+                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("room_id",roomlist.get(2).getRoom_id());
+                            startActivity(i);
+                            finish();
+
+                        } else {
+                            //todo 풀방
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String url, String error) {
+                    // 서버와 연결이 되지 않았을 때
+                }
+            });
+        }catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void onClick4(View v){
+        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+
+        try{
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+                    + roomlist.get(3).getRoom_id()
+                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
+                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
+                @Override
+                public void onSuccess(String receiveData) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(receiveData);
+                        int result_code = jsonObject.optInt("result_code", -1);
+                        if (result_code == 0) {
+
+                            //todo BoardActivity 미완
+                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                            i.putExtra("user_id",user_id);
+                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("room_id",roomlist.get(3).getRoom_id());
+                            startActivity(i);
+                            finish();
+
+                        } else {
+                            //todo 풀방
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String url, String error) {
+                    // 서버와 연결이 되지 않았을 때
+                }
+            });
+        }catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void onClick5(View v){
+        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+
+        try{
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+                    + roomlist.get(4).getRoom_id()
+                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
+                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
+                @Override
+                public void onSuccess(String receiveData) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(receiveData);
+                        int result_code = jsonObject.optInt("result_code", -1);
+                        if (result_code == 0) {
+
+                            //todo BoardActivity 미완
+                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                            i.putExtra("user_id",user_id);
+                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("room_id",roomlist.get(4).getRoom_id());
+                            startActivity(i);
+                            finish();
+                        } else {
+                            //todo 풀방
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFail(String url, String error) {
+                    // 서버와 연결이 되지 않았을 때
+                }
+            });
+        }catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public void onClick6(View v){
+        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
+
+        try{
+            RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
+                    + roomlist.get(5).getRoom_id()
+                    + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
+                    + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
+                @Override
+                public void onSuccess(String receiveData) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(receiveData);
+                        int result_code = jsonObject.optInt("result_code", -1);
+                        if (result_code == 0) {
+
+                            //todo BoardActivity 미완
+                            Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                            i.putExtra("user_id",user_id);
+                            i.putExtra("user_nickname",user_nickname);
+                            i.putExtra("room_id",roomlist.get(5).getRoom_id());
+                            startActivity(i);
+                            finish();
+
+                        } else {
+                            //todo 풀방
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String url, String error) {
+                    // 서버와 연결이 되지 않았을 때
+                }
+            });
+        }catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void init(){
         room=new LinearLayout[6];

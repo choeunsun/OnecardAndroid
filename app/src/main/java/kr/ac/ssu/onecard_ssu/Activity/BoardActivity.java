@@ -1,5 +1,6 @@
 package kr.ac.ssu.onecard_ssu.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,6 +45,7 @@ public class BoardActivity extends AppCompatActivity {
     private int playerCnt = 3;
     private LinearLayout myDeck;
     private ArrayList<Card> listCard;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,10 @@ public class BoardActivity extends AppCompatActivity {
         btn_turnoff.setVisibility(View.INVISIBLE);
         btn_gamestart.setVisibility(View.VISIBLE);
         iv_topCard.setVisibility(View.INVISIBLE);
+
+        intent=getIntent();
+        nickname=intent.getStringExtra("user_id");
+        channel_id=intent.getStringExtra("room_id");
 
         btn_onecard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +178,8 @@ public class BoardActivity extends AppCompatActivity {
                     btn_gamestart.setVisibility(View.INVISIBLE);
                     iv_topCard.setVisibility(View.VISIBLE);
                     board = new Board(playerCnt, getApplicationContext());
-                    RequestUtil.get("http://133.130.115.228:7010/user/gamestart?room_id=" + channel_id, new Request() {
+                    RequestUtil.get("http://133.130.115.228:7010/user/gamestart?room_id="
+                            + channel_id, new Request() {
                         @Override
                         public void onSuccess(String receiveData) {
                             System.out.println(receiveData);
