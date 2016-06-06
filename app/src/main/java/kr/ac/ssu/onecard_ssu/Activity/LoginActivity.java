@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean success=false;
     RequestUtil requestUtil=null;
     SharedPreferences user_info;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -44,7 +44,7 @@ public class MakeroomActivity extends Activity {
             @Override
             public void onClick(View v) {
                 user_id = user_info.getString("email","");
-                room_title = et_makeroom_title.getText().toString();
+              //  room_title = et_makeroom_title.getText().toString();
                 if (cb_makeroom_yes.isChecked() == true)
                     is_private = "on";
                 else

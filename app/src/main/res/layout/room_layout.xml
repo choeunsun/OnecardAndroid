@@ -41,6 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room1"
+                    android:onClick="onClick1"
                     >
 
                     <TextView
@@ -54,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_room_lock1"
                         android:src="@mipmap/ic_launcher"
+                        android:visibility="invisible"
                         android:layout_gravity="center_horizontal" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -77,6 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room2"
+                    android:onClick="onClick2"
                     >
 
                     <TextView
@@ -89,6 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_room_lock2"
+                        android:visibility="invisible"
                         android:src="@mipmap/ic_launcher"
                         android:layout_gravity="center_horizontal" />
                     <TextView
@@ -125,6 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room3"
+                    android:onClick="onClick3"
                     >
 
                     <TextView
@@ -138,6 +143,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_room_lock3"
                         android:src="@mipmap/ic_launcher"
+                        android:visibility="invisible"
                         android:layout_gravity="center_horizontal" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,6 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room4"
+                    android:onClick="onClick4"
                     >
 
                     <TextView
@@ -173,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_room_lock4"
+                        android:visibility="invisible"
                         android:src="@mipmap/ic_launcher"
                         android:layout_gravity="center_horizontal" />
                     <TextView
@@ -209,6 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room5"
+                    android:onClick="onClick5"
                     >
 
                     <TextView
@@ -220,6 +229,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:id="@+id/iv_room_lock5"
                         android:src="@mipmap/ic_launcher"
                         android:layout_gravity="center_horizontal" />
@@ -245,6 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room6"
+                    android:onClick="onClick6"
                     >
 
                     <TextView
@@ -258,6 +269,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_room_lock6"
                         android:src="@mipmap/ic_launcher"
+                        android:visibility="invisible"
                         android:layout_gravity="center_horizontal" />
                     <TextView
                         android:layout_width="wrap_content"
