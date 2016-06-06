@@ -46,6 +46,7 @@ public class RoomActivity extends AppCompatActivity {
     ImageView lock6;
     String user_id, user_nickname;
     SharedPreferences user_info;
+    TextView slash1, slash2, slash3, slash4, slash5, slash6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +93,17 @@ public class RoomActivity extends AppCompatActivity {
                     , roomlist.get(n).getIs_private());
             n++;
         }
+        else{
+            roomInvisible(1);
+        }
         if(n<room_count) {
             resetRoom2(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
                     , roomlist.get(n).getRoom_limit()
                     , roomlist.get(n).getIs_private());
             n++;
+        }
+        else{
+            roomInvisible(2);
         }
         if(n<room_count) {
             resetRoom3(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
@@ -104,11 +111,17 @@ public class RoomActivity extends AppCompatActivity {
                     , roomlist.get(n).getIs_private());
             n++;
         }
+        else{
+            roomInvisible(3);
+        }
         if(n<room_count) {
             resetRoom4(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
                     , roomlist.get(n).getRoom_limit()
                     , roomlist.get(n).getIs_private());
             n++;
+        }
+        else{
+            roomInvisible(4);
         }
         if(n<room_count) {
             resetRoom5(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
@@ -116,11 +129,17 @@ public class RoomActivity extends AppCompatActivity {
                     , roomlist.get(n).getIs_private());
             n++;
         }
+        else{
+            roomInvisible(5);
+        }
         if(n<room_count) {
             resetRoom6(roomlist.get(n).getRoom_name(), roomlist.get(n).getUser_cnt()
                     , roomlist.get(n).getRoom_limit()
                     , roomlist.get(n).getIs_private());
             n++;
+        }
+        else{
+            roomInvisible(6);
         }
     }
 
@@ -298,6 +317,27 @@ public class RoomActivity extends AppCompatActivity {
 
    }
 
+    public void roomInvisible(int i){
+        if(i<=6){
+            room6.setVisibility(View.INVISIBLE);
+        }
+        if(i<=5){
+            room5.setVisibility(View.INVISIBLE);
+        }
+        if(i<=4){
+            room4.setVisibility(View.INVISIBLE);
+        }
+        if(i<=3){
+            room3.setVisibility(View.INVISIBLE);
+        }
+        if(i<=2){
+            room2.setVisibility(View.INVISIBLE);
+        }
+        if(i<=1){
+            room1.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void init(){
         room=new LinearLayout[6];
         room1=(LinearLayout)findViewById(R.id.ll_room_room1);
@@ -337,6 +377,12 @@ public class RoomActivity extends AppCompatActivity {
         user_info=getSharedPreferences("user_info", MODE_PRIVATE);
         user_id = user_info.getString("email", "");
         user_nickname = user_info.getString("nickname","");
+        slash1=(TextView)findViewById(R.id.tv_room_slash1);
+        slash2=(TextView)findViewById(R.id.tv_room_slash2);
+        slash3=(TextView)findViewById(R.id.tv_room_slash3);
+        slash4=(TextView)findViewById(R.id.tv_room_slash4);
+        slash5=(TextView)findViewById(R.id.tv_room_slash5);
+        slash6=(TextView)findViewById(R.id.tv_room_slash6);
     }
 
 }

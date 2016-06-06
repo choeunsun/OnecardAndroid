@@ -2,39 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@drawable/room_background">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="방 만들기"
-            android:id="@+id/btn_room_make" />
+            android:text=""
+            android:id="@+id/btn_room_make"
+            android:background="@drawable/room_make"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="방 찾기"
-            android:id="@+id/btn_room_search" />
+            android:text=""
+            android:id="@+id/btn_room_search"
+            android:background="@drawable/room_search"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center">
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:orientation="horizontal"
@@ -42,13 +57,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room1"
                     android:onClick="onClick1"
+                    android:padding="10dp"
+
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name1" />
+                        android:id="@+id/tv_room_name1"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -61,16 +80,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt1" />
+                        android:id="@+id/tv_room_crt1"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash1"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all1" />
+                        android:id="@+id/tv_room_all1"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
 
@@ -80,13 +106,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room2"
                     android:onClick="onClick1"
+                    android:padding="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name2" />
+                        android:id="@+id/tv_room_name2"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -99,16 +128,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt2" />
+                        android:id="@+id/tv_room_crt2"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash2"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all2" />
+                        android:id="@+id/tv_room_all2"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -130,13 +166,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room3"
                     android:onClick="onClick1"
+                    android:padding="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name3" />
+                        android:id="@+id/tv_room_name3"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -149,16 +188,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt3" />
+                        android:id="@+id/tv_room_crt3"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash3"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all3" />
+                        android:id="@+id/tv_room_all3"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
 
@@ -168,13 +214,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room4"
                     android:onClick="onClick1"
+                    android:padding="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name4" />
+                        android:id="@+id/tv_room_name4"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -187,16 +236,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt4" />
+                        android:id="@+id/tv_room_crt4"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash4"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all4" />
+                        android:id="@+id/tv_room_all4"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -218,13 +274,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room5"
                     android:onClick="onClick1"
+
+                    android:padding="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name5" />
+                        android:id="@+id/tv_room_name5"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -237,16 +297,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt5" />
+                        android:id="@+id/tv_room_crt5"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash5"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all5" />
+                        android:id="@+id/tv_room_all5"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
 
@@ -256,13 +323,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_room_room6"
                     android:onClick="onClick1"
+
+                    android:padding="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Room"
-                        android:id="@+id/tv_room_name6" />
+                        android:id="@+id/tv_room_name6"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -275,16 +346,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:id="@+id/tv_room_crt6" />
+                        android:id="@+id/tv_room_crt6"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" / " />
+                        android:text=" / "
+                        android:id="@+id/tv_room_slash6"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:id="@+id/tv_room_all6" />
+                        android:id="@+id/tv_room_all6"
+                        android:textColor="@color/white"
+                        android:textSize ="25sp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -297,19 +375,25 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        >
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" prev"
-            android:id="@+id/btn_room_prev" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text=" "
+            android:id="@+id/btn_room_prev"
+            android:background="@drawable/room_prev"
+            android:layout_marginRight="10dp"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="next"
-            android:id="@+id/btn_room_next" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text=""
+            android:id="@+id/btn_room_next"
+            android:background="@drawable/room_next"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 

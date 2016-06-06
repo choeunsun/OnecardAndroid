@@ -107,11 +107,13 @@ public class LoginActivity extends AppCompatActivity {
         et_pw=(EditText)findViewById(R.id.et_login_password);
         user_info=getSharedPreferences("user_info", MODE_PRIVATE);
         user_id = user_info.getString("email", "");
+        /*
         if(user_id.contains("@")){
             Intent i= new Intent(getApplicationContext(),RoomActivity.class);
             startActivity(i);
             finish();
         }
+        */
     }
 }
 

@@ -306,7 +306,6 @@ public class BoardActivity extends AppCompatActivity {
                                                 e.printStackTrace();
                                             }
                                         }
-
                                     });
                                 }
                             } else if ("system_Qcard".equals(bodyType)) {
