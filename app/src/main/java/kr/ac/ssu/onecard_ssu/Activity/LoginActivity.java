@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i= new Intent(getApplicationContext(),SignupActivity.class);
                 startActivity(i);
-                finish();
+            //    finish();
             }
         });
     }
@@ -106,6 +106,12 @@ public class LoginActivity extends AppCompatActivity {
         et_id=(EditText)findViewById(R.id.et_login_id);
         et_pw=(EditText)findViewById(R.id.et_login_password);
         user_info=getSharedPreferences("user_info", MODE_PRIVATE);
+        user_id = user_info.getString("email", "");
+        if(user_id.contains("@")){
+            Intent i= new Intent(getApplicationContext(),RoomActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 }
 

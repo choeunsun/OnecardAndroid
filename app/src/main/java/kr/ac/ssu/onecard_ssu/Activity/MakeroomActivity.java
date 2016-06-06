@@ -29,7 +29,7 @@ public class MakeroomActivity extends Activity {
     CheckBox cb_makeroom_two, cb_makeroom_three, cb_makeroom_four, cb_makeroom_five;
     Button btn_makeroom_ok;
     Button btn_makeroom_cancel;
-    String room_title,user_id, is_private, room_limit, nickname,room_pw;
+    String room_title,user_id, is_private, room_limit, nickname,room_pw, channel_id, user_nick;
     SharedPreferences user_info;
 
     @Override
@@ -44,6 +44,7 @@ public class MakeroomActivity extends Activity {
             @Override
             public void onClick(View v) {
                 user_id = user_info.getString("email","");
+                user_nick=user_info.getString("nickname","");
                 room_title = et_makeroom_title.getText().toString();
                 if (cb_makeroom_yes.isChecked() == true)
                     is_private = "on";
@@ -72,6 +73,7 @@ public class MakeroomActivity extends Activity {
                         try {
                             jsonObject = new JSONObject(receiveData);
                             int result_code = jsonObject.optInt("result_code", -1);
+                            channel_id=jsonObject.getString("channel_id");
                             if (result_code == 0) {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -80,6 +82,12 @@ public class MakeroomActivity extends Activity {
                                     }
                                 });
                                 //todo 방 새성하고 방으로 들어가기
+                                Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                                i.putExtra("user_id",user_id);
+                                i.putExtra("room_id",channel_id);
+                                i.putExtra("user_nick", user_nick);
+                                startActivity(i);
+                                finish();
 
                             } else {
                                 //todo 방 생성 실패

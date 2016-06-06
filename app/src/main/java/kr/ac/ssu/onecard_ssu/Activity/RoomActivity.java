@@ -70,7 +70,7 @@ public class RoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pos++;
-                resetRoomAll();
+                resetRoom();
             }
         });
         btn_room_prev.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,7 @@ public class RoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (pos > 0)
                     pos--;
-                resetRoomAll();
+                resetRoom();
             }
         });
 
@@ -268,7 +268,7 @@ public class RoomActivity extends AppCompatActivity {
                        i.putExtra("user_nickname",user_nickname);
                        i.putExtra("room_id",roomlist.get(0).getRoom_id());
                        startActivity(i);
-                       finish();
+                   //    finish();
 
                    } else {
                        //todo 풀방
