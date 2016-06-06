@@ -40,7 +40,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tv_p1_nick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -80,7 +80,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_p2_nick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -115,7 +115,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tv_p3_nick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -151,7 +151,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tv_p4_nick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

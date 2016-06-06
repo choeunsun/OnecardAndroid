@@ -47,6 +47,8 @@ public class BoardActivity extends AppCompatActivity {
     private int playerCnt = 3;
     private LinearLayout myDeck;
     private TextView myNick;
+    private TextView[] pNick;
+
 
     private ArrayList<Card> listCard;
     Intent intent;
@@ -94,6 +96,11 @@ public class BoardActivity extends AppCompatActivity {
         btn_gamestart = (Button) findViewById(R.id.btn_board_gamestart);
         iv_topCard = (ImageView) findViewById(R.id.iv_board_topcard);
         myNick = (TextView) findViewById(R.id.tv_board_myNick);
+        pNick = new TextView[4];
+        pNick[0] = (TextView) findViewById(R.id.tv_p1_nick);
+        pNick[1] = (TextView) findViewById(R.id.tv_p2_nick);
+        pNick[2] = (TextView) findViewById(R.id.tv_p3_nick);
+        pNick[3] = (TextView) findViewById(R.id.tv_p4_nick);
 
         btn_onecard.setVisibility(View.INVISIBLE);
         btn_turnoff.setVisibility(View.INVISIBLE);
@@ -104,6 +111,12 @@ public class BoardActivity extends AppCompatActivity {
         user_id =intent.getStringExtra("user_id");
         channel_id=intent.getStringExtra("room_id");
         user_nick = intent.getStringExtra("user_nick");
+
+        playerCnt = intent.getIntExtra("playerNum", 1);
+
+        for(int k=0; k< playerCnt; k++){
+            pNick[k].setText(intent.getStringExtra("p"+k+"nick"));
+        }
 
         myNick.setText(user_nick);
 

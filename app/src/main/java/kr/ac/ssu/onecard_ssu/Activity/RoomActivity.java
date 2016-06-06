@@ -261,12 +261,21 @@ public class RoomActivity extends AppCompatActivity {
                    jsonObject = new JSONObject(receiveData);
                    int result_code = jsonObject.optInt("result_code", -1);
                    if (result_code == 0) {
-
-                       //todo BoardActivity 미완
                        Intent i = new Intent(getApplicationContext(), BoardActivity.class);
                        i.putExtra("user_id",user_id);
                        i.putExtra("user_nickname",user_nickname);
                        i.putExtra("room_id",roomlist.get(0).getRoom_id());
+
+
+                       JSONArray jsonArray = jsonObject.getJSONArray("user_list");
+                       for(int k=0; k<jsonArray.length(); k++) {
+                           JSONObject object = jsonArray.getJSONObject(k);
+                           i.putExtra("p"+k+"id",object.getString("user_id"));
+                           i.putExtra("p"+k+"nick",object.getString("user_nick"));
+                       }
+                       i.putExtra("playerNum", jsonArray.length());
+                       //todo BoardActivity 미완
+
                        startActivity(i);
                    //    finish();
 
