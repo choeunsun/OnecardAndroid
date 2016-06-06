@@ -188,7 +188,7 @@ public class RoomActivity extends AppCompatActivity {
        Toast.makeText(getApplicationContext(),"room",Toast.LENGTH_LONG).show();
 
         try{
-       RequestUtil.get("http://133.130.115.228:7010/user/login?room_id="
+       RequestUtil.get("http://133.130.115.228:7010/user/joinroom?room_id="
                + roomlist.get(1).getRoom_id()
                + "&user_nick=" + URLEncoder.encode(user_nickname, "UTF-8")
                + "&user_id="+URLEncoder.encode(user_id, "UTF-8"), new Request() {
@@ -199,9 +199,11 @@ public class RoomActivity extends AppCompatActivity {
                    jsonObject = new JSONObject(receiveData);
                    int result_code = jsonObject.optInt("result_code", -1);
                    if (result_code == 0) {
-                       Intent i = new Intent(getApplicationContext(), BoardActivity.class);
-                       startActivity(i);
-                       finish();
+
+                       //todo BoardActivity 미완
+                    //   Intent i = new Intent(getApplicationContext(), BoardActivity.class);
+                     //  startActivity(i);
+                      // finish();
 
                    } else {
                        //todo 풀방
