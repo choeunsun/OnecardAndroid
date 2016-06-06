@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/login_back11"
+    android:focusableInTouchMode="true"
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,14 +16,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Emil" />
+            android:text="Email"
+            android:textColor="@color/white"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/et_login_id"
             android:ems="10"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
@@ -33,14 +39,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PASSWORD" />
+            android:text="PASSWORD"
+            android:textColor="@color/white"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/et_login_password" />
+            android:id="@+id/et_login_password"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
     <LinearLayout
@@ -54,14 +62,20 @@
         android:layout_height="wrap_content"
         android:text="Sign in"
         android:id="@+id/btn_login_login"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:background="#50000000"
+        android:textColor="@color/white"
+        android:layout_marginRight="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign up"
             android:id="@+id/btn_login_signup"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="#50000000"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

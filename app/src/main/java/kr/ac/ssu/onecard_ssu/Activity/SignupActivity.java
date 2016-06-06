@@ -1,5 +1,6 @@
 package kr.ac.ssu.onecard_ssu.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,7 +61,7 @@ public class SignupActivity extends AppCompatActivity{
                                 try {
                                     jsonObject = new JSONObject(receiveData);
                                     int result_code = jsonObject.optInt("result_code", -1);
-                                    if (result_code == 0) {
+                                    if (result_code == 0) { //성공할 때
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -69,6 +70,7 @@ public class SignupActivity extends AppCompatActivity{
                                         });
                                         Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(i);
+                                        finish();
                                     } else {
                                         //todo 실패했을 때 reation
 

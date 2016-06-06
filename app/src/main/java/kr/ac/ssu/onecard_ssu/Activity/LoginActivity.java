@@ -3,6 +3,7 @@ package kr.ac.ssu.onecard_ssu.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.ac.ssu.onecard_ssu.MainActivity;
 import kr.ac.ssu.onecard_ssu.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -28,7 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     String id,pw;
     boolean success=false;
     RequestUtil requestUtil=null;
-
+    SharedPreferences user_info;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                 id = et_id.getText().toString();
                 pw = et_pw.getText().toString();
 
-                RequestUtil.get("http://133.130.115.228:7010/user/login?user_id=" + id + "&user_pw=" + pw, new Request() {
+                RequestUtil.get("http://133.130.115.228:7010/user/login?user_id=" + id
+                        + "&user_pw=" + pw, new Request() {
                     @Override
                     public void onSuccess(String receiveData) {
                         JSONObject jsonObject = null;
@@ -57,9 +61,18 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_LONG);
                                     }
                                 });
-                                //todo 로그인될때 방정보로 넘어가기
+                                String nickname = jsonObject.getString("nick_name");
+                                SharedPreferences.Editor editor=user_info.edit();
+                                editor.putString("email",id);
+                                editor.putString("nickname",nickname);
+                                editor.commit();
+
+                                Intent i=new Intent(getApplicationContext(), RoomActivity.class);
+                                startActivity(i);
+                                finish();
+
                             } else {
-                                //todo 로그인 정보가 잘못되었을 떄1 `
+                                //todo 로그인 정보가 잘못되었을 떄1
 
                             }
                         } catch (JSONException e) {
@@ -82,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i= new Intent(getApplicationContext(),SignupActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -91,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_signup=(Button)findViewById(R.id.btn_login_signup);
         et_id=(EditText)findViewById(R.id.et_login_id);
         et_pw=(EditText)findViewById(R.id.et_login_password);
+        user_info=getSharedPreferences("user_info", MODE_PRIVATE);
     }
 }
 
