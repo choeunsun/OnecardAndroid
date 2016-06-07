@@ -53,6 +53,7 @@ public class BoardActivity extends AppCompatActivity {
     private int myTurn;
     private int turn;
     private int attack;
+    private ImageView[] pProfile;
     private ArrayList<ImageView> myDeckImageViewList;
 
 
@@ -107,6 +108,12 @@ public class BoardActivity extends AppCompatActivity {
         pNick[1] = (TextView) findViewById(R.id.tv_p2_nick);
         pNick[2] = (TextView) findViewById(R.id.tv_p3_nick);
         pNick[3] = (TextView) findViewById(R.id.tv_p4_nick);
+        pProfile = new ImageView[4];
+        pProfile[0] = (ImageView) findViewById(R.id.iv_board_p1profile);
+        pProfile[1] = (ImageView) findViewById(R.id.iv_board_p2profile);
+        pProfile[2] = (ImageView) findViewById(R.id.iv_board_p3profile);
+        pProfile[3] = (ImageView) findViewById(R.id.iv_board_p4profile);
+
 
         btn_onecard.setVisibility(View.INVISIBLE);
         btn_turnoff.setVisibility(View.INVISIBLE);
@@ -130,6 +137,8 @@ public class BoardActivity extends AppCompatActivity {
             if (intent.getStringExtra("p" + k + "nick") == user_nick) {
                 ;
             } else {
+                pNick[k].setVisibility(View.VISIBLE);
+                pProfile[k].setVisibility(View.VISIBLE);
                 pNick[k].setText(intent.getStringExtra("p" + k + "nick"));
             }
         }
@@ -424,7 +433,10 @@ public class BoardActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
+                                                pNick[pNum].setVisibility(View.VISIBLE);
+                                                pProfile[pNum].setVisibility(View.VISIBLE);
                                                 pNick[pNum++].setText(body.getString("sender_nick"));
+
                                                 board.userHashMap.put(body.getString("sender_id"), new User(body.getString("sender_nick"), body.getString("sender_id")));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
