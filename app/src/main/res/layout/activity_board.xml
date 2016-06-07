@@ -216,29 +216,28 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btnpass"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:layout_marginRight="10dp" />
 
             <Button
                 android:id="@+id/btn_board_gamestart"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btnstart"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:layout_marginRight="10dp" />
 
             <Button
                 android:id="@+id/btn_board_onecard"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
                 android:layout_above="@+id/btn_board_turnoff"
-                android:layout_alignEnd="@+id/btn_board_turnoff"
-                android:layout_alignRight="@+id/btn_board_turnoff"
                 android:background="@drawable/btnonecard"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:layout_alignRight="@+id/btn_board_turnoff" />
 
             <Button
                 android:id="@+id/btn_board_quit"
@@ -256,6 +255,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_margin="10dp"
+                android:clickable="true"
                 android:layout_toLeftOf="@id/btn_board_quit"
                 android:background="@drawable/bt_message" />
         </RelativeLayout>

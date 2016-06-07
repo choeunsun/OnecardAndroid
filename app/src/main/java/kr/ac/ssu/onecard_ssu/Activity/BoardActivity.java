@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,6 +41,7 @@ public class BoardActivity extends AppCompatActivity {
     private String user_id;
     private String user_nick;
     private String title;
+    private String seven;
     private Board board;
     private Button btn_onecard;
     private Button btn_turnoff;
@@ -55,6 +59,10 @@ public class BoardActivity extends AppCompatActivity {
     private int attack;
     private ImageView[] pProfile;
     private ArrayList<ImageView> myDeckImageViewList;
+    private boolean sevenFlag;
+    private int Qflag;
+    int x;
+    int y;
 
 
     private ArrayList<Card> listCard;
@@ -113,6 +121,16 @@ public class BoardActivity extends AppCompatActivity {
         pProfile[1] = (ImageView) findViewById(R.id.iv_board_p2profile);
         pProfile[2] = (ImageView) findViewById(R.id.iv_board_p3profile);
         pProfile[3] = (ImageView) findViewById(R.id.iv_board_p4profile);
+        Button chat = (Button) findViewById(R.id.btn_board_chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getApplicationContext(), SevenActivity.class), 1);
+                Log.i("click", "click");
+            }
+        });
+
+
 
 
         btn_onecard.setVisibility(View.INVISIBLE);
@@ -155,75 +173,85 @@ public class BoardActivity extends AppCompatActivity {
         btn_turnoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btn_turnoff.setClickable(false);
 
-                ImageButton imageButton = new ImageButton(getApplicationContext());
-                final Card c = board.QCard.poll();
-                //listCard.add(c);
-                LinearLayout.LayoutParams params =
-                        new LinearLayout.LayoutParams(300, ViewGroup.LayoutParams.MATCH_PARENT);
-                imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                imageButton.setBackgroundColor(Color.alpha(255));
-                imageButton.setLayoutParams(params);
-                imageButton.setImageResource(c.getImage());
-                imageButton.setId(c.get_id());
-                imageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.e("result", check(view.getId()) + "");
-                        if (check(view.getId())) {
-                            JSONObject obj = new JSONObject();
-                            try {
-                                obj.put("type", "publish");
-                                obj.put("address", "to.server.channel");
-                                JSONObject body = new JSONObject();
-                                body.put("type", "system_play");
-                                body.put("channel_id", channel_id);
-                                body.put("sender_id", user_id);
-                                body.put("sender_nick", user_nick);
-                                body.put("turn", myTurn);
-                                body.put("msg", view.getId() + "");
-                                obj.put("body", body);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.e("onClick", e.toString());
-                            }
+                int n = 1;
+                if(attack > 0)
+                    n += attack - 1;
+                for(int i=0; i<n; i++) {
 
-                            sockJS.send(obj);
-                            //board.QCard.addLast(board.c.get(view.getId()));
-                            iv_topCard.setImageResource(board.c.get(view.getId()).getImage());
-                            view.setVisibility(View.GONE);
-                            myDeckImageViewList.remove(view);
-                            for (int i = 0; i < myDeckImageViewList.size(); i++) {
-                                myDeckImageViewList.get(i).setClickable(false);
-                                myDeckImageViewList.get(i).setEnabled(false);
-                                myDeckImageViewList.get(i).setFocusable(false);
-                                myDeckImageViewList.get(i).setFocusableInTouchMode(false);
-                                myDeckImageViewList.get(i).setLongClickable(false);
-                            }
-                            if (myDeckImageViewList.size() == 0) {
-                                JSONObject obj2 = new JSONObject();
+                    ImageButton imageButton = new ImageButton(getApplicationContext());
+                    final Card c = board.QCard.getFirst();
+                    board.QCard.removeFirst();
+                    //listCard.add(c);
+                    LinearLayout.LayoutParams params =
+                            new LinearLayout.LayoutParams(300, ViewGroup.LayoutParams.MATCH_PARENT);
+                    imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    imageButton.setBackgroundColor(Color.alpha(255));
+                    imageButton.setLayoutParams(params);
+                    imageButton.setImageResource(c.getImage());
+                    imageButton.setId(c.get_id());
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.e("result", check(view.getId()) + "");
+                            if (check(view.getId())) {
+                                btn_turnoff.setClickable(false);
+                                JSONObject obj = new JSONObject();
                                 try {
-                                    obj2.put("type", "publish");
-                                    obj2.put("address", "to.server.channel");
-                                    JSONObject body2 = new JSONObject();
-                                    body2.put("type", "system_win");
-                                    body2.put("channel_id", channel_id);
-                                    body2.put("sender_id", user_id);
-                                    body2.put("sender_nick", user_nick);
-                                    body2.put("turn", myTurn);
-                                    body2.put("msg", view.getId() + "");
-                                    obj2.put("body", body2);
+                                    obj.put("type", "publish");
+                                    obj.put("address", "to.server.channel");
+                                    JSONObject body = new JSONObject();
+                                    body.put("type", "system_play");
+                                    body.put("channel_id", channel_id);
+                                    body.put("sender_id", user_id);
+                                    body.put("sender_nick", user_nick);
+                                    body.put("turn", myTurn);
+                                    body.put("msg", view.getId() + "");
+                                    obj.put("body", body);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                     Log.e("onClick", e.toString());
                                 }
-                                sockJS.send(obj2);
-                            } // 게임에서 이김
+
+                                sockJS.send(obj);
+                                //board.QCard.addLast(board.c.get(view.getId()));
+                                iv_topCard.setImageResource(board.c.get(view.getId()).getImage());
+                                view.setVisibility(View.GONE);
+                                myDeckImageViewList.remove(view);
+                                for (int i = 0; i < myDeckImageViewList.size(); i++) {
+                                    myDeckImageViewList.get(i).setClickable(false);
+                                    myDeckImageViewList.get(i).setEnabled(false);
+                                    myDeckImageViewList.get(i).setFocusable(false);
+                                    myDeckImageViewList.get(i).setFocusableInTouchMode(false);
+                                    myDeckImageViewList.get(i).setLongClickable(false);
+                                }
+                                if (myDeckImageViewList.size() == 0) {
+                                    JSONObject obj2 = new JSONObject();
+                                    try {
+                                        obj2.put("type", "publish");
+                                        obj2.put("address", "to.server.channel");
+                                        JSONObject body2 = new JSONObject();
+                                        body2.put("type", "system_win");
+                                        body2.put("channel_id", channel_id);
+                                        body2.put("sender_id", user_id);
+                                        body2.put("sender_nick", user_nick);
+                                        body2.put("turn", myTurn);
+                                        body2.put("msg", view.getId() + "");
+                                        obj2.put("body", body2);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Log.e("onClick", e.toString());
+                                    }
+                                    sockJS.send(obj2);
+                                } // 게임에서 이김
+
+                            }
                         }
-                    }
-                });
-                myDeck.addView(imageButton);
-                myDeckImageViewList.add(imageButton);
+                    });
+                    myDeck.addView(imageButton);
+                    myDeckImageViewList.add(imageButton);
+                }
                 JSONObject json = new JSONObject();
                 try {
                     json.put("type", "publish");
@@ -234,7 +262,7 @@ public class BoardActivity extends AppCompatActivity {
                     body.put("sender_id", user_id);
                     body.put("sender_nick", user_nick);
                     body.put("turn", myTurn);
-                    body.put("msg", ".");
+                    body.put("msg", ""+n);
                     json.put("body", body);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -321,6 +349,7 @@ public class BoardActivity extends AppCompatActivity {
 //                        final String data =  bodyType + "/&" +user_id + "/&" + msg + "/&" + date;
                         if (("to.channel." + channel_id).equals(address)) {
                             if ("system".equals(bodyType)) {      // 카드가 들어왔을 때
+                                Qflag=1;
                                 playerCnt++;
                                 String id = body.getString("id");
                                 if (id.equals(user_id)) {
@@ -340,11 +369,16 @@ public class BoardActivity extends AppCompatActivity {
                                                     imageButton.setLayoutParams(params);
                                                     imageButton.setImageResource(c.getImage());
                                                     imageButton.setId(body.getInt("card" + i));
+
+
+
+
                                                     imageButton.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
                                                             Log.e("result", check(view.getId()) + "");
                                                             if (check(view.getId())) {
+                                                                btn_turnoff.setClickable(false);
                                                                 JSONObject obj = new JSONObject();
                                                                 try {
                                                                     obj.put("type", "publish");
@@ -365,7 +399,8 @@ public class BoardActivity extends AppCompatActivity {
                                                                 sockJS.send(obj);
                                                                 //board.QCard.addLast(board.c.get(view.getId()));
                                                                 iv_topCard.setImageResource(board.c.get(view.getId()).getImage());
-                                                                view.setVisibility(View.GONE);
+
+                                                               view.setVisibility(View.GONE);
                                                                 myDeckImageViewList.remove(view);
                                                                 for (int i = 0; i < myDeckImageViewList.size(); i++) {
                                                                     myDeckImageViewList.get(i).setClickable(false);
@@ -417,7 +452,7 @@ public class BoardActivity extends AppCompatActivity {
                             } else if ("system_Qcard".equals(bodyType)) {
                                 int size = body.getInt("size");
                                 for (int i = 0; i < size; i++) {
-                                    board.QCard.add(board.c.get(body.getInt("card" + i)));
+                                    board.QCard.addLast(board.c.get(body.getInt("card" + i)));
                                 }
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -450,19 +485,87 @@ public class BoardActivity extends AppCompatActivity {
 
                                 User user = board.userHashMap.get(body.getString("sender_id"));
                                 //todo user 카드 한장 줄여주기
+                                int id = 0;
+                                try {
+                                    id = Integer.parseInt(body.getString("msg"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
+                                board.QCard.addLast(board.c.get(id));
                                 turn = body.getInt("turn");
-                                turn++;
-                                if (turn >= playerCnt)
-                                    turn -= playerCnt;
+                                if(board.c.get(id).getIndex()==12)
+                                    Qflag*=-1;
+
+                                if(board.c.get(id).getIndex()==11)
+                                    turn=turn +2*Qflag;
+                                else if(board.c.get(id).getIndex()==13)
+                                    turn=body.getInt("turn");
+                                else
+                                    turn=turn +1*Qflag;
+
+                                if(board.c.get(id).getIndex() == 1 || board.c.get(id).getIndex() == 2 || board.c.get(id).getShape() == 'j'){
+                                    if(board.c.get(id).getShape() == 'j'){
+                                        if(board.c.get(id).getIndex() == 100){
+                                            attack += 7;
+                                        }else{
+                                            attack += 10;
+                                        }
+                                    }else{
+                                        if(board.c.get(id).getIndex() == 1 && board.c.get(id).getShape() == 'h')
+                                            attack += 5;
+                                        else if(board.c.get(id).getIndex() == 1)
+                                            attack += 3;
+                                        else
+                                            attack += 2;
+                                    }
+                                }
+
+                                //if (turn >= playerCnt)
+                                turn %= playerCnt;
+                                turn = turn>0? turn: turn * -1;
+                                Log.e("turnPlay", myTurn + " myt / t" + turn + " / pc" + playerCnt);
+
+
+                                final int finalId = id;
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        iv_topCard.setImageResource(board.c.get(finalId).getImage());
+                                        if (turn == myTurn) {
+                                            Toast.makeText(getApplicationContext(), "나의 턴입니다.", Toast.LENGTH_SHORT).show();
+                                            myNick.setTextColor(Color.parseColor("#ff0000"));
+                                            for (int i = 0; i < myDeckImageViewList.size(); i++) {
+                                                myDeckImageViewList.get(i).setClickable(true);
+                                                myDeckImageViewList.get(i).setEnabled(true);
+                                                myDeckImageViewList.get(i).setFocusable(true);
+                                                myDeckImageViewList.get(i).setFocusableInTouchMode(true);
+                                                myDeckImageViewList.get(i).setLongClickable(true);
+                                            }
+                                            btn_turnoff.setClickable(true);
+                                        }else{
+                                            myNick.setTextColor(Color.parseColor("#ffffff"));
+                                        }
+                                    }
+                                });
+                            } else if ("system_turn".equals(bodyType)) {
+                                attack = 0;
+                                turn = body.getInt("turn");
+                                if(turn != myTurn){
+                                    for(int i=0; i< Integer.parseInt(body.getString("msg")); i++){
+                                        board.QCard.removeFirst();
+                                    }
+                                }
+                                turn += 1 * Qflag;
+                                turn %= playerCnt;
+                                turn = turn>0? turn: turn * -1;
                                 Log.e("turn", myTurn + " myt / t" + turn + " / pc" + playerCnt);
-
-
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         if (turn == myTurn) {
                                             Toast.makeText(getApplicationContext(), "나의 턴입니다.", Toast.LENGTH_SHORT).show();
+                                            myNick.setTextColor(Color.parseColor("#ff0000"));
                                             for (int i = 0; i < myDeckImageViewList.size(); i++) {
                                                 myDeckImageViewList.get(i).setClickable(true);
                                                 myDeckImageViewList.get(i).setEnabled(true);
@@ -470,41 +573,15 @@ public class BoardActivity extends AppCompatActivity {
                                                 myDeckImageViewList.get(i).setFocusableInTouchMode(true);
                                                 myDeckImageViewList.get(i).setLongClickable(true);
                                             }
-                                        }
-                                        int id = 0;
-                                        try {
-                                            id = Integer.parseInt(body.getString("msg"));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        iv_topCard.setImageResource(board.c.get(id).getImage());
-                                        board.QCard.add(board.c.get(id));
-                                    }
-                                });
-                            } else if ("system_turn".equals(bodyType)) {
-
-                                turn = body.getInt("turn");
-                                turn++;
-                                if (turn >= playerCnt)
-                                    turn -= playerCnt;
-                                Log.e("turn", myTurn + " myt / t" + turn + " / pc" + playerCnt);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (turn == myTurn) {
-                                            for (int i = 0; i < myDeckImageViewList.size(); i++) {
-                                                myDeckImageViewList.get(i).setClickable(true);
-                                                myDeckImageViewList.get(i).setEnabled(true);
-                                                myDeckImageViewList.get(i).setFocusable(true);
-                                                myDeckImageViewList.get(i).setFocusableInTouchMode(true);
-                                                myDeckImageViewList.get(i).setLongClickable(true);
-                                            }
+                                            btn_turnoff.setClickable(true);
+                                        }else{
+                                            myNick.setTextColor(Color.parseColor("#ffffff"));
                                         }
 
                                         //board.QCard.add(board.c.get(id));
                                     }
                                 });
-                                board.QCard.poll();
+
                             } else if ("system_win".equals(bodyType)) {
 
                                 final String nick_name = body.getString("sender_nick");
@@ -515,10 +592,23 @@ public class BoardActivity extends AppCompatActivity {
                                         for (int i = 0; i < myDeckImageViewList.size(); i++) {
                                             myDeckImageViewList.get(i).setVisibility(View.GONE);
                                         }
+                                        myDeckImageViewList.clear();
+                                        attack = 0;
                                         btn_onecard.setVisibility(View.INVISIBLE);
                                         btn_turnoff.setVisibility(View.INVISIBLE);
                                         btn_gamestart.setVisibility(View.VISIBLE);
                                         iv_topCard.setVisibility(View.INVISIBLE);
+                                    }
+                                });
+                            }else if("chat".equals(bodyType)){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Toast.makeText(getApplicationContext(), body.getString("sender_nick") + " : " +body.getString("msg"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 });
                             }
@@ -548,8 +638,7 @@ public class BoardActivity extends AppCompatActivity {
         Card topCard = board.QCard.getLast();
 
         Log.e("shape", card.getShape() + " / " + topCard.getShape() + " / " + card.get_id() + " / " + topCard.get_id());
-        if (topCard.getShape() == 'j')
-            return true;
+
 
         if (card.getShape() == 'j') {
             return true;
@@ -557,18 +646,49 @@ public class BoardActivity extends AppCompatActivity {
         if (card.getShape() == topCard.getShape()) {
             if (topCard.getIndex() == 7) {
                 // todo 7을 냈을 때 색깔 바꿔주기
+                /*
+                Intent i = new Intent(getApplicationContext(), SevenActivity.class);
+                startActivityForResult(i, 0);*/
+                return true;
             }
             if (attack > 0) {
+                if(topCard.getShape() == 'j')
+                    return false;
                 if (!((card.getIndex() == 1) || (card.getIndex() == 2))) {
                     return false;
                 }
             }
             return true;
         }
+        if (attack == 0 || topCard.getShape() == 'j')
+            return true;
         if (topCard.getIndex() == card.getIndex()) {
             return true;
         } else {
             return false;
+        }
+
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1){
+            JSONObject obj2 = new JSONObject();
+            try {
+                obj2.put("type", "publish");
+                obj2.put("address", "to.server.channel");
+                JSONObject body2 = new JSONObject();
+                body2.put("type", "chat");
+                body2.put("channel_id", channel_id);
+                body2.put("sender_id", user_id);
+                body2.put("sender_nick", user_nick);
+                body2.put("turn", myTurn);
+                body2.put("msg", data.getStringExtra("msg"));
+                obj2.put("body", body2);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("onClick", e.toString());
+            }
+            sockJS.send(obj2);
         }
 
     }

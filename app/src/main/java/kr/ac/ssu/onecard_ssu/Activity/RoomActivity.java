@@ -29,7 +29,7 @@ import kr.ac.ssu.onecard_ssu.model.Room;
 public class RoomActivity extends AppCompatActivity {
     LinearLayout room1, room2, room3, room4, room5, room6;
     LinearLayout[] room;
-    Button btn_room_makeroom, btn_room_prev, btn_room_next;
+    Button btn_room_makeroom, btn_room_prev, btn_room_next, btn_room_search;
     ArrayList<Room> roomlist;
     int pos=0, room_count=0;
     TextView name1, crt1, all1;
@@ -79,6 +79,12 @@ public class RoomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (pos > 0)
                     pos--;
+                resetRoom();
+            }
+        });
+        btn_room_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 resetRoom();
             }
         });
@@ -384,6 +390,8 @@ public class RoomActivity extends AppCompatActivity {
         slash4=(TextView)findViewById(R.id.tv_room_slash4);
         slash5=(TextView)findViewById(R.id.tv_room_slash5);
         slash6=(TextView)findViewById(R.id.tv_room_slash6);
+        btn_room_search=(Button)findViewById(R.id.btn_room_search);
+
     }
 
 }
